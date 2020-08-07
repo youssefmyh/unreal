@@ -106,6 +106,13 @@ protected:
 	 */
 	void LookUpAtRate(float Rate);
 
+
+	/*Handles Player Sprinting*/
+	void BeginSprint();
+	void EndSprint();
+
+	bool bIsSprinting = false;
+
 	struct TouchData
 	{
 		TouchData() { bIsPressed = false;Location=FVector::ZeroVector;}

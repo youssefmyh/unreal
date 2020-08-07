@@ -113,6 +113,12 @@ void AUnRealTutorialCharacter::SetupPlayerInputComponent(class UInputComponent* 
 	// set up gameplay key bindings
 	check(PlayerInputComponent);
 
+	//Bind Sprint 
+
+	PlayerInputComponent->BindAction("Sprint",IE_Pressed,this, &AUnRealTutorialCharacter::BeginSprint);
+	PlayerInputComponent->BindAction("Sprint",IE_Pressed,this,&AUnRealTutorialCharacter::EndSprint);
+
+
 	// Bind jump events
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
@@ -297,4 +303,15 @@ bool AUnRealTutorialCharacter::EnableTouchscreenMovement(class UInputComponent* 
 	}
 	
 	return false;
+}
+
+
+void AUnRealTutorialCharacter::BeginSprint() {
+
+	bIsSprinting = true;
+}
+void AUnRealTutorialCharacter::EndSprint() {
+
+	bIsSprinting = false;
+
 }

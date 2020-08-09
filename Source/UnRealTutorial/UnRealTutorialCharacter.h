@@ -80,6 +80,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	uint32 bUsingMotionControllers : 1;
 
+    bool bIsPickingUp = false;
+    
 protected:
 	
 	/** Fires a projectile. */
@@ -93,7 +95,8 @@ protected:
 
 	/** Handles stafing movement, left and right */
 	void MoveRight(float Val);
-
+    
+    
 	/**
 	 * Called via input to turn at a given rate.
 	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
@@ -110,6 +113,12 @@ protected:
 	/*Handles Player Sprinting*/
 	void BeginSprint();
 	void EndSprint();
+    
+    /*Pickup System*/
+    void BeginPickup();
+    void EndPickUp();
+    void ShowInventory();
+    
 
 	bool bIsSprinting = false;
 

@@ -119,6 +119,14 @@ void AUnRealTutorialCharacter::SetupPlayerInputComponent(class UInputComponent* 
 	PlayerInputComponent->BindAction("Sprint",IE_Released,this,&AUnRealTutorialCharacter::EndSprint);
 
 
+    // Pickup and show Inventory
+    
+    PlayerInputComponent->BindAction("Pickup",IE_Pressed,this,&AUnRealTutorialCharacter::BeginPickup);
+    
+    PlayerInputComponent->BindAction("Pickup",IE_Released,this,&AUnRealTutorialCharacter::EndPickUp);
+    
+    PlayerInputComponent->BindAction("ShowInventory",IE_Pressed,this,&AUnRealTutorialCharacter::ShowInventory);
+    
 	// Bind jump events
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
@@ -318,5 +326,25 @@ void AUnRealTutorialCharacter::EndSprint() {
 	bIsSprinting = false;
     
     GEngine->AddOnScreenDebugMessage(-1,10,FColor::Red,TEXT("End Sprint"));
+
+}
+
+
+void AUnRealTutorialCharacter::BeginPickup(){
+    
+    bIsPickingUp = true;
+    GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Red,TEXT("Start Pickup"));
+    
+}
+
+void AUnRealTutorialCharacter::EndPickUp(){
+
+   bIsPickingUp = false;
+   GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Red,TEXT("End Pickup"));
+    
+}
+void AUnRealTutorialCharacter::ShowInventory(){
+    
+    GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Red,TEXT("Show Inventory"));
 
 }

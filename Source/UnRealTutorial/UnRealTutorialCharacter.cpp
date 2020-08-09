@@ -116,7 +116,7 @@ void AUnRealTutorialCharacter::SetupPlayerInputComponent(class UInputComponent* 
 	//Bind Sprint 
 
 	PlayerInputComponent->BindAction("Sprint",IE_Pressed,this, &AUnRealTutorialCharacter::BeginSprint);
-	PlayerInputComponent->BindAction("Sprint",IE_Pressed,this,&AUnRealTutorialCharacter::EndSprint);
+	PlayerInputComponent->BindAction("Sprint",IE_Released,this,&AUnRealTutorialCharacter::EndSprint);
 
 
 	// Bind jump events
@@ -265,7 +265,9 @@ void AUnRealTutorialCharacter::MoveForward(float Value)
 	if (Value != 0.0f)
 	{
 		// add movement in that direction
-		AddMovementInput(GetActorForwardVector(), Value);
+        
+		AddMovementInput(GetActorForwardVector(), bIsSprinting?  Value : Value/2);
+        
 	}
 }
 
@@ -274,7 +276,7 @@ void AUnRealTutorialCharacter::MoveRight(float Value)
 	if (Value != 0.0f)
 	{
 		// add movement in that direction
-		AddMovementInput(GetActorRightVector(), Value);
+		AddMovementInput(GetActorRightVector(), bIsSprinting?  Value : Value/2);
 	}
 }
 
@@ -309,9 +311,12 @@ bool AUnRealTutorialCharacter::EnableTouchscreenMovement(class UInputComponent* 
 void AUnRealTutorialCharacter::BeginSprint() {
 
 	bIsSprinting = true;
+    GEngine->AddOnScreenDebugMessage(-1,5,FColor::Red,TEXT("Start Sprint"));
 }
 void AUnRealTutorialCharacter::EndSprint() {
 
 	bIsSprinting = false;
+    
+    GEngine->AddOnScreenDebugMessage(-1,10,FColor::Red,TEXT("End Sprint"));
 
 }

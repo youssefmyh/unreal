@@ -15,7 +15,7 @@ AFinishedLine::AFinishedLine()
 
 	finalBox->SetGenerateOverlapEvents(true);
 	finalBox->OnComponentBeginOverlap.AddDynamic(this, &AFinishedLine::TriggerEnter);
-
+    
 }
 
 // Called when the game starts or when spawned

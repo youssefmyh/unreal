@@ -24,6 +24,7 @@ void ACameraUtility::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+    /*
 	const float TimeBetweenCameraChange = 3.0f;
 	const float SmoothBlendTime = 0.75f;
 
@@ -48,6 +49,7 @@ void ACameraUtility::Tick(float DeltaTime)
 
 		}
 	}
+     */
 
 
 }

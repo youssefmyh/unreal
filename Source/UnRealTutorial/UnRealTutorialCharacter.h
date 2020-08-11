@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Engine.h"
 #include "UnRealTutorialCharacter.generated.h"
 
 class UInputComponent;
@@ -81,6 +82,8 @@ public:
 	uint32 bUsingMotionControllers : 1;
 
     bool bIsPickingUp = false;
+
+	TArray<FString> Inventory;
     
 protected:
 	

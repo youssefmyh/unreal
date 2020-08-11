@@ -48,8 +48,8 @@ public:
     UFUNCTION()
     void TriggerExit(class UPrimitiveComponent* Comp,class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
-    
-    
+    void SetMyPlayer(AActor * player);
+
     
     
     

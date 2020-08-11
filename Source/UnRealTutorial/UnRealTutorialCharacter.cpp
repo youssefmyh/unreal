@@ -346,5 +346,11 @@ void AUnRealTutorialCharacter::EndPickUp(){
 void AUnRealTutorialCharacter::ShowInventory(){
     
     GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Red,TEXT("Show Inventory"));
+	for (auto & item: Inventory) {
+
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("items %s"),*item));
+
+	}
+
 
 }

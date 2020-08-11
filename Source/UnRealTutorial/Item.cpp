@@ -19,6 +19,12 @@ AItem::AItem()
     
 }
 
+
+void AItem::SetMyPlayer(AActor* player) {
+
+    MyPlyerController = Cast<AUnRealTutorialCharacter>(player);
+
+}
 // Called when the game starts or when spawned
 void AItem::BeginPlay()
 {
@@ -31,6 +37,15 @@ void AItem::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+    if (MyPlyerController != NULL) {
+    
+        if (MyPlyerController->bIsPickingUp && IsItemWithRange) {
+        
+            Pickup();
+        }
+
+    }
+
 }
 
 
@@ -38,6 +53,7 @@ void AItem::TriggerEnter(class UPrimitiveComponent* Comp,class AActor* OtherActo
     
     IsItemWithRange = true;
     GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Green,TEXT("Click on E to collect item"));
+    SetMyPlayer(OtherActor);
 }
 
 void AItem::TriggerExit(class UPrimitiveComponent* Comp,class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex){
@@ -50,5 +66,8 @@ void AItem::TriggerExit(class UPrimitiveComponent* Comp,class AActor* OtherActor
 
 void AItem::Pickup(){
     
+    MyPlyerController->Inventory.Add(itemName);
+    Destroy();
+
     
 }

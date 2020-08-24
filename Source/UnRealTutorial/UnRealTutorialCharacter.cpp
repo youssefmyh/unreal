@@ -113,6 +113,11 @@ void AUnRealTutorialCharacter::SetupPlayerInputComponent(class UInputComponent* 
 	// set up gameplay key bindings
 	check(PlayerInputComponent);
 
+	//Bind Interact
+
+	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &AUnRealTutorialCharacter::BeginInteract);
+	PlayerInputComponent->BindAction("Interact", IE_Released, this, &AUnRealTutorialCharacter::EndInteract);
+
 	//Bind Sprint 
 
 	PlayerInputComponent->BindAction("Sprint",IE_Pressed,this, &AUnRealTutorialCharacter::BeginSprint);
@@ -353,4 +358,15 @@ void AUnRealTutorialCharacter::ShowInventory(){
 	}
 
 
+}
+
+
+void AUnRealTutorialCharacter::BeginInteract() {
+
+	bIsInteraction = true;
+}
+
+void AUnRealTutorialCharacter::EndInteract() {
+
+	bIsInteraction = false;
 }

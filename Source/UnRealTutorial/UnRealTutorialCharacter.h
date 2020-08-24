@@ -82,6 +82,9 @@ public:
 	uint32 bUsingMotionControllers : 1;
 
     bool bIsPickingUp = false;
+	bool bIsSprinting = false;
+
+	bool bIsInteraction = false;
 
 	TArray<FString> Inventory;
     
@@ -121,9 +124,12 @@ protected:
     void BeginPickup();
     void EndPickUp();
     void ShowInventory();
+
+	void BeginInteract();
+	void EndInteract();
     
 
-	bool bIsSprinting = false;
+	
 
 	struct TouchData
 	{

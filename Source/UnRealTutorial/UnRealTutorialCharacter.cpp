@@ -82,6 +82,14 @@ AUnRealTutorialCharacter::AUnRealTutorialCharacter()
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
+
+
+	/*
+	Inital Stamina
+	*/
+	InitialStamina = 100.0f;
+	CurrentStamina = InitialStamina;
+
 }
 
 void AUnRealTutorialCharacter::BeginPlay()
@@ -318,6 +326,28 @@ bool AUnRealTutorialCharacter::EnableTouchscreenMovement(class UInputComponent* 
 	}
 	
 	return false;
+}
+
+float AUnRealTutorialCharacter::GetCurrentStamina()
+{
+	return CurrentStamina;
+}
+
+float AUnRealTutorialCharacter::GetInitialStamina()
+{
+	return InitialStamina;
+}
+
+void AUnRealTutorialCharacter::UpdateCurrentStamina(float Stamina)
+{
+	CurrentStamina += Stamina;
+}
+
+void AUnRealTutorialCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	UpdateCurrentStamina(-DeltaTime *0.01f * InitialStamina);
 }
 
 

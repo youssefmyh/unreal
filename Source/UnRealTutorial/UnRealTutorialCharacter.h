@@ -163,5 +163,32 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+	/*
+	Stamina 
+	*/
+
+private:
+	UPROPERTY(EditAnywhere, Category = "Stamina")
+		float InitialStamina;
+
+	UPROPERTY(EditAnywhere, Category = "Stamina")
+		float CurrentStamina;
+
+public:
+	/*Access for Init and Current Stamina */
+	UFUNCTION(BlueprintPure, Category = "Stamina")
+		float GetInitialStamina();
+
+	UFUNCTION(BlueprintPure, Category = "Stamina")
+		float GetCurrentStamina();
+
+	/*Update Current Stamina
+	@param Stamina This the Amount to change th player stamina by. It can be Positive or Negative
+	*/
+	UFUNCTION(BlueprintCallable, Category = "Stamina")
+		void UpdateCurrentStamina(float Stamina);
+
+	virtual void Tick(float DeltaTime) override;
+
 };
 

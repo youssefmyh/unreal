@@ -4,6 +4,7 @@
 #include "UnRealTutorialHUD.h"
 #include "UnRealTutorialCharacter.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Blueprint/UserWidget.h"
 
 AUnRealTutorialGameMode::AUnRealTutorialGameMode()
 	: Super()
@@ -14,4 +15,17 @@ AUnRealTutorialGameMode::AUnRealTutorialGameMode()
 
 	// use our custom HUD class
 	HUDClass = AUnRealTutorialHUD::StaticClass();
+}
+
+void AUnRealTutorialGameMode::BeginPlay(){
+    
+    Super::BeginPlay();
+    
+    AUnRealTutorialCharacter * tutorialCharacter = Cast<AUnRealTutorialCharacter>(UGameplayStatics::GetPlayerPawn(this,0));
+    
+    if(PlayerHUDClass != nullptr){
+        
+        CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), PlayerHUDClass);
+        CurrentWidget->AddToViewport();
+    }
 }

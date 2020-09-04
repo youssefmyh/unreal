@@ -11,8 +11,19 @@ class AUnRealTutorialGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
+    virtual void BeginPlay() override;
+    
 public:
 	AUnRealTutorialGameMode();
+    
+    
+protected:
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite , Category = "Stamina" , Meta = (BlueprintProtected = "true"))
+    TSubclassOf<class UUserWidget> PlayerHUDClass;
+    
+    UPROPERTY()
+    class UUserWidget * CurrentWidget;
+    
 };
 
 

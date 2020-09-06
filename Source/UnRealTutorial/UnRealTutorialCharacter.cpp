@@ -11,7 +11,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
-
+#include "MySaveGame.h"
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 //////////////////////////////////////////////////////////////////////////
@@ -121,8 +121,14 @@ void AUnRealTutorialCharacter::SetupPlayerInputComponent(class UInputComponent* 
 	// set up gameplay key bindings
 	check(PlayerInputComponent);
 
+    
+    //Bind Save and Load Game
+    
+    PlayerInputComponent->BindAction("Save",IE_Pressed,this,&AUnRealTutorialCharacter::SaveGame);
+    PlayerInputComponent->BindAction("Load",IE_Pressed,this,&AUnRealTutorialCharacter::LoadGame);
+    
 	//Bind Interact
-
+    
 	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &AUnRealTutorialCharacter::BeginInteract);
 	PlayerInputComponent->BindAction("Interact", IE_Released, this, &AUnRealTutorialCharacter::EndInteract);
 
@@ -399,4 +405,33 @@ void AUnRealTutorialCharacter::BeginInteract() {
 void AUnRealTutorialCharacter::EndInteract() {
 
 	bIsInteraction = false;
+}
+
+
+void AUnRealTutorialCharacter::SaveGame(){
+    
+    // Create A save Game Static Object
+    UMySaveGame *saveGame = Cast<UMySaveGame>(UGameplayStatics::CreateSaveGameObject(UMySaveGame::StaticClass()));
+    
+    // Get the Player Location
+    saveGame->PlayerLocation = this->GetActorLocation();
+    
+    // Save the Game Needed The Save Game Instance and Slot Name
+    // Slot name is just a Unquie Id
+    UGameplayStatics::SaveGameToSlot(saveGame,TEXT("MySlot"),0);
+    
+    GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Green,TEXT("Save Game"));
+}
+void AUnRealTutorialCharacter::LoadGame(){
+
+    // Get the Load Game Instance
+    UMySaveGame *loadGame = Cast<UMySaveGame>(UGameplayStatics::CreateSaveGameObject(UMySaveGame::StaticClass()));
+
+    // Load Saved MySlot whiched Saved in SaveGame
+    loadGame = Cast<UMySaveGame>(UGameplayStatics::LoadGameFromSlot(TEXT("MySlot"),0));
+    
+    // Set Current Player Location
+    this->SetActorLocation(loadGame->PlayerLocation);
+    
+    GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Green,TEXT("Load Game"));
 }

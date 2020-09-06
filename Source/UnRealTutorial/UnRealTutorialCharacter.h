@@ -189,6 +189,11 @@ public:
 		void UpdateCurrentStamina(float Stamina);
 
 	virtual void Tick(float DeltaTime) override;
-
+    
+    
+/*Save and Load Game **/
+private:
+    void SaveGame();
+    void LoadGame();
 };
 

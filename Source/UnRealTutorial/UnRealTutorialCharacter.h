@@ -195,5 +195,10 @@ public:
 private:
     void SaveGame();
     void LoadGame();
+
+//
+private:
+    // do Ray Casting 
+    void PerformRayCasting();
 };
 

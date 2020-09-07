@@ -121,6 +121,10 @@ void AUnRealTutorialCharacter::SetupPlayerInputComponent(class UInputComponent* 
 	// set up gameplay key bindings
 	check(PlayerInputComponent);
 
+    //Bind RayCasting Action
+    
+    PlayerInputComponent->BindAction("RayCast",IE_Pressed,this,&AUnRealTutorialCharacter::PerformRayCasting);
+    
     
     //Bind Save and Load Game
     
@@ -434,4 +438,12 @@ void AUnRealTutorialCharacter::LoadGame(){
     this->SetActorLocation(loadGame->PlayerLocation);
     
     GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Green,TEXT("Load Game"));
+}
+
+
+void AUnRealTutorialCharacter::PerformRayCasting()
+{
+    
+    GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Red,TEXT("Action From Ray Casting"));
+    
 }

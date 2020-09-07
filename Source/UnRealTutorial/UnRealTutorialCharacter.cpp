@@ -443,6 +443,21 @@ void AUnRealTutorialCharacter::LoadGame(){
 
 void AUnRealTutorialCharacter::PerformRayCasting()
 {
+
+	FHitResult* HitResult = new FHitResult();
+	FVector startTrace = FirstPersonCameraComponent->GetComponentLocation();
+	FVector ForwardVector = FirstPersonCameraComponent->GetForwardVector();
+	FVector EndTrace = ((ForwardVector * 5000.0f) + startTrace);
+
+	FCollisionQueryParams* TraceParam = new FCollisionQueryParams();
+
+	if (GetWorld()->LineTraceSingleByChannel(*HitResult, startTrace, EndTrace, ECC_Visibility, *TraceParam)) {
+	
+		DrawDebugLine(GetWorld(), startTrace, EndTrace, FColor::Red, true);
+		GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, FString::Printf(TEXT("You Hit : %s"), *HitResult->Actor->GetName()));
+
+	}
+
     
     GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Red,TEXT("Action From Ray Casting"));
     

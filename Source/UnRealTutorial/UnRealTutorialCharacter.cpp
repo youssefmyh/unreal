@@ -12,6 +12,7 @@
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 #include "MySaveGame.h"
+#include "MyTarget.h"
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 //////////////////////////////////////////////////////////////////////////
@@ -98,7 +99,7 @@ void AUnRealTutorialCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
-    // Make Sure to use the World Location 
+    // Make Sure to use the World Location
 	FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::KeepWorld, true), TEXT("GripPoint"));
 
 	// Show or hide the two versions of the gun based on whether or not we're using motion controllers.
@@ -222,6 +223,35 @@ void AUnRealTutorialCharacter::OnFire()
 			AnimInstance->Montage_Play(FireAnimation, 1.f);
 		}
 	}
+    
+    
+    FHitResult * HitResult = new FHitResult();
+    FVector startTarace = FirstPersonCameraComponent->GetComponentLocation();
+    FVector ForwardTrace = FirstPersonCameraComponent->GetForwardVector();
+    FVector EndTrace = ((ForwardTrace * 2000.0f) + startTarace);
+    FCollisionQueryParams * TraceParams = new FCollisionQueryParams();
+    
+    if(GetWorld()->LineTraceSingleByChannel(*HitResult,startTarace,EndTrace,ECC_Visibility,*TraceParams))
+    {
+        
+        DrawDebugLine(GetWorld(), startTarace, EndTrace, FColor::Green,false,5.0f);
+        
+        AMyTarget *Mytarget = Cast<AMyTarget>(HitResult->Actor.Get());
+        
+        if(Mytarget != NULL ){
+            
+            Mytarget->Damagetarget(50.0f);
+            
+            
+        }
+        
+    }
+    
+    
+    
+
+    
+    
 }
 
 void AUnRealTutorialCharacter::OnResetVR()

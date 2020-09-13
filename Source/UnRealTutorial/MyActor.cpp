@@ -18,7 +18,7 @@ AMyActor::AMyActor()
 
 	MyMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 
-	MyMesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepWorldTransform);
+	//MyMesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepWorldTransform);
 	SpeedScale = 0.0f;
 
 	

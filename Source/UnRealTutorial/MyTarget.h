@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/BoxComponent.h"
 #include "MyTarget.generated.h"
 
 UCLASS()
@@ -23,4 +24,23 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+
+/*
+ Shooting and Destroying Target
+ */
+public:
+    void DestroyTarget();
+    
+    void Damagetarget(float Damage);
+    
+    UPROPERTY(EditAnywhere)
+    UStaticMeshComponent *TargetStaticMesh;
+    
+    
+private:
+    float Health;
+    
+    
+    
+    
 };

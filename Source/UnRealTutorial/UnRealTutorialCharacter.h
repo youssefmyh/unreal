@@ -200,5 +200,11 @@ private:
 private:
     // do Ray Casting 
     void PerformRayCasting();
+
+// Bullet hole
+private:
+	UPROPRTY(EditAnywhere, Category = BulletDecal)
+		UMaterialInterface* BulletHoleDecal; // Need to explain what's Decal 
+
 };
 

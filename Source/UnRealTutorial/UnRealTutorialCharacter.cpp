@@ -198,6 +198,8 @@ void AUnRealTutorialCharacter::OnFire()
 	
 	}
 
+
+
 	DrawDebugLine(GetWorld(), StartTraceVector, EndTraceVector, FColor::Red, false, 5.0f);
 
 	// try and play the sound if specified

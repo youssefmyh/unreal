@@ -180,32 +180,25 @@ void AUnRealTutorialCharacter::SetupPlayerInputComponent(class UInputComponent* 
 void AUnRealTutorialCharacter::OnFire()
 {
 	// try and fire a projectile
-	if (ProjectileClass != NULL)
-	{
-		UWorld* const World = GetWorld();
-		if (World != NULL)
-		{
-			if (bUsingMotionControllers)
-			{
-				const FRotator SpawnRotation = VR_MuzzleLocation->GetComponentRotation();
-				const FVector SpawnLocation = VR_MuzzleLocation->GetComponentLocation();
-				World->SpawnActor<AUnRealTutorialProjectile>(ProjectileClass, SpawnLocation, SpawnRotation);
-			}
-			else
-			{
-				const FRotator SpawnRotation = GetControlRotation();
-				// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
-				const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
 
-				//Set Spawn Collision Handling Override
-				FActorSpawnParameters ActorSpawnParams;
-				ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+	//Initialize HitResult Array
+	TArray<FHitResult> HitResults;
+	HitResults.Init(FHitResult(ForceInit),10);
 
-				// spawn the projectile at the muzzle
-				World->SpawnActor<AUnRealTutorialProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
-			}
-		}
+	FVector StartTraceVector = FirstPersonCameraComponent->GetComponentLocation();
+	FVector FrowardVector = FirstPersonCameraComponent->GetForwardVector();
+	FVector EndTraceVector = (FrowardVector + 2000.0f) + StartTraceVector;
+
+	FCollisionQueryParams *TraceParams = new FCollisionQueryParams();
+	TraceParams->bTraceComplex = false;
+	FCollisionResponseParams fResponseParams(ECollisionResponse::ECR_Overlap);
+
+	bool isLineTrace = GetWorld()->LineTraceMultiByChannel(HitResults, StartTraceVector, EndTraceVector, ECollisionChannel::ECC_Visibility, *TraceParams, fResponseParams);
+	if (isLineTrace) {
+	
 	}
+
+	DrawDebugLine(GetWorld(), StartTraceVector, EndTraceVector, FColor::Red, false, 5.0f);
 
 	// try and play the sound if specified
 	if (FireSound != NULL)
@@ -225,7 +218,7 @@ void AUnRealTutorialCharacter::OnFire()
 	}
     
     
-    FHitResult * HitResult = new FHitResult();
+   /* FHitResult * HitResult = new FHitResult();
     FVector startTarace = FirstPersonCameraComponent->GetComponentLocation();
     FVector ForwardTrace = FirstPersonCameraComponent->GetForwardVector();
     FVector EndTrace = ((ForwardTrace * 2000.0f) + startTarace);
@@ -246,6 +239,7 @@ void AUnRealTutorialCharacter::OnFire()
         }
         
     }
+	*/
     
     
     

@@ -36,7 +36,7 @@ void AMyActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FVector newLocation = GetActorLocation();
+/*	FVector newLocation = GetActorLocation();
 	float DeletaHeight = (FMath::Sin(RunningTime + DeltaTime) - FMath::Sin(RunningTime));
 	if(IsYAxis)
 		newLocation.Y += DeletaHeight * SpeedScale;
@@ -44,9 +44,9 @@ void AMyActor::Tick(float DeltaTime)
 		newLocation.X += DeletaHeight * SpeedScale;
 
 	RunningTime += DeltaTime;
-	SetActorLocation(newLocation);
+	SetActorLocation(newLocation);*/
 
-	UE_LOG(LogTemp, Warning, TEXT("THE TIME IS %f   %f   %f"), RunningTime, DeltaTime , DeletaHeight);
+//	UE_LOG(LogTemp, Warning, TEXT("THE TIME IS %f   %f   %f"), RunningTime, DeltaTime , DeletaHeight);
 }
 
 void AMyActor::TriggerEnter(class UPrimitiveComponent* Comp , class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) {

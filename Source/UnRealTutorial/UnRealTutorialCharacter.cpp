@@ -187,16 +187,44 @@ void AUnRealTutorialCharacter::OnFire()
 
 	FVector StartTraceVector = FirstPersonCameraComponent->GetComponentLocation();
 	FVector FrowardVector = FirstPersonCameraComponent->GetForwardVector();
-	FVector EndTraceVector = (FrowardVector + 2000.0f) + StartTraceVector;
+	FVector EndTraceVector = (FrowardVector * 2000.0f) + StartTraceVector;
 
 	FCollisionQueryParams *TraceParams = new FCollisionQueryParams();
 	TraceParams->bTraceComplex = false;
 	FCollisionResponseParams fResponseParams(ECollisionResponse::ECR_Overlap);
 
-	bool isLineTrace = GetWorld()->LineTraceMultiByChannel(HitResults, StartTraceVector, EndTraceVector, ECollisionChannel::ECC_Visibility, *TraceParams, fResponseParams);
+
+	// Perform Line Trace 
+	bool isLineTrace = GetWorld()->LineTraceMultiByChannel(HitResults, StartTraceVector, EndTraceVector, ECC_Visibility, *TraceParams, fResponseParams);
+
+	int32 DamageAmount = 30;
+
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green,FString::Printf(TEXT(" Bullet hole N = %d %d") , HitResults.Num(), isLineTrace));
+
+	/*If we hist something we will create bullet hole*/
+	if (HitResults.Num() > 0) {
+
+		createBulletHole(&HitResults[0]);
+	}
+
+	// Process Each Hit Result in Our Array
+	for (int x = 0; x< HitResults.Num(); x++)
+	{
+		AStaticMeshActor* PotentionalSolidMaterial = Cast<AStaticMeshActor>(HitResults[x].Actor.Get());
+
+		if (PotentionalSolidMaterial != NULL && !PotentionalSolidMaterial->IsPendingKill()) {
+			break;
+
+		}
+	
+	}
+
+
 	if (isLineTrace) {
 	
 	}
+
+
 
 
 
@@ -488,4 +516,19 @@ void AUnRealTutorialCharacter::PerformRayCasting()
     
     GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Red,TEXT("Action From Ray Casting"));
     
+}
+
+void AUnRealTutorialCharacter::createBulletHole(FHitResult* object)
+{
+
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Inside Create Bullet hole "));
+
+	if (BulletHoleDecal != NULL) {
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("BulletHoleDecal not null "));
+
+		FVector BulletHoleSize = FVector(3.5f,7.0f,7.0f);
+		UGameplayStatics::SpawnDecalAtLocation(GetWorld(), BulletHoleDecal, BulletHoleSize, object->ImpactPoint, object->ImpactNormal.Rotation(), 10.0f);
+
+	}
+
 }

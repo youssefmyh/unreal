@@ -203,8 +203,13 @@ private:
 
 // Bullet hole
 private:
-	UPROPRTY(EditAnywhere, Category = BulletDecal)
+	UPROPERTY(EditAnywhere, Category = BulletDecal)
 		UMaterialInterface* BulletHoleDecal; // Need to explain what's Decal 
+	
+	/*This function create a BulletHole on the Location we have Hit*/
+	void createBulletHole(FHitResult *object);
+
+
 
 };
 

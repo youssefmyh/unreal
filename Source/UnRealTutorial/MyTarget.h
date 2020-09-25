@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h"
+#include "Components/TextRenderComponent.h"
+#include "Engine.h"
 #include "MyTarget.generated.h"
 
 UCLASS()
@@ -33,14 +35,17 @@ public:
     
     void Damagetarget(float Damage);
     
-    UPROPERTY(EditAnywhere)
-    UStaticMeshComponent *TargetStaticMesh;
+ 
     
     
 private:
-    float Health;
-    
-    
-    
-    
+    int Health;
+
+    UTextRenderComponent* HealthText;
+
+    UPROPERTY(EditAnywhere)
+        UStaticMeshComponent* TargetStaticMesh;
+
+    void makeTextFacePlayer();
+            
 };

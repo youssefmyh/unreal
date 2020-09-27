@@ -53,6 +53,6 @@ void AMyActor::TriggerEnter(class UPrimitiveComponent* Comp , class AActor* Othe
 	// reset player when you touch 
 
 	UE_LOG(LogTemp,Warning,TEXT("They start pverlaping"));
-	if(OtherActor->IsA(ACharacter::StaticClass()))
-	OtherActor->SetActorLocation(PlayerStrtingLocation);
+//	if(OtherActor->IsA(ACharacter::StaticClass()))
+//	OtherActor->SetActorLocation(PlayerStrtingLocation);
 }

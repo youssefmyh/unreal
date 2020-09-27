@@ -15,7 +15,7 @@ AMyTarget::AMyTarget()
     HealthText = CreateDefaultSubobject<UTextRenderComponent>(TEXT("Health Text"));
     HealthText->SetWorldSize(20.0f);
     HealthText->SetTextRenderColor(FColor::Red);
-
+    HealthText->HorizontalAlignment=EHTA_Center;
     TargetStaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Target Mesh"));
 
     //RootComponent = TargetStaticMesh;

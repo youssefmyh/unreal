@@ -13,6 +13,7 @@
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 #include "MySaveGame.h"
 #include "MyTarget.h"
+#include "PentralMaterial.h"
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 //////////////////////////////////////////////////////////////////////////
@@ -216,7 +217,26 @@ void AUnRealTutorialCharacter::OnFire()
 			break;
 
 		}
-	
+        
+        
+        // Check if we hit penetrable material
+        
+        APentralMaterial *PentralMaterialObj = Cast<APentralMaterial>(HitResults[x].Actor.Get());
+        
+        if(PentralMaterialObj != NULL && !PentralMaterialObj->IsPendingKill()){
+            
+            DamageAmount = DamageAmount / PentralMaterialObj->Resistance;
+        }
+
+        
+        // check if we hit target appy damage
+        AMyTarget *myTarget = Cast<AMyTarget>(HitResults[x].Actor.Get());
+        
+        if(myTarget != NULL && !myTarget->IsPendingKill()){
+        
+            myTarget->Damagetarget(DamageAmount);
+            
+        }
 	}
 
 

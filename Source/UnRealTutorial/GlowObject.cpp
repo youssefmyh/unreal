@@ -12,8 +12,8 @@ AGlowObject::AGlowObject()
     SM_Glow = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Static Mesh"));
     
     
-    UProperty(EditAnywhere)
-    UBoxComponent * BT_Pickup;
+//    UProperty(EditAnywhere)
+//    UBoxComponent * BT_Pickup;
     
 }
 
@@ -29,5 +29,13 @@ void AGlowObject::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void AGlowObject::EnterObjectRasuis(UPrimitiveComponent* Comp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+}
+
+void AGlowObject::ExitObjectRaduis(UPrimitiveComponent* Comp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
 }
 

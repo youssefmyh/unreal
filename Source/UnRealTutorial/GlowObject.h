@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/BoxComponent.h"
+#include "Components/TextRenderComponent.h"
+#include "Engine.h"
 #include "GlowObject.generated.h"
 
 UCLASS()
@@ -34,8 +37,8 @@ protected:
     UStaticMeshComponent *SM_Glow;
     
     
-    UProperty(EditAnywhere)
-    UBoxComponent * BT_Pickup;
+   // UPROPERTY(EditAnywhere)
+   // UBoxComponent * BT_Pickup;
     
     
     

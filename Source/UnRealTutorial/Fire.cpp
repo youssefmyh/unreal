@@ -63,6 +63,8 @@ void AFire::TriggerEnter(class UPrimitiveComponent* Comp, class AActor* OtherAct
 	if (bFireLit)
 		return;
 
+    if(currentPlayerController == NULL)
+        return;
 	if (!currentPlayerController->Inventory.Contains("Matches")) {
 		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Green, TEXT("You don't have Matches"));
 

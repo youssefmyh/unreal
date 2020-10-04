@@ -43,13 +43,15 @@ void AGlowObject::EnterObjectRasuis(UPrimitiveComponent* Comp, AActor* OtherActo
 
 void AGlowObject::ExitObjectRaduis(UPrimitiveComponent* Comp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-    GEngine->AddOnScreenDebugMessage(-1,5,FColor::Green,TEXT("Exit Glow Raduis"));
     ToggleGlow(false);
+    GEngine->AddOnScreenDebugMessage(-1,5,FColor::Green,TEXT("Exit Glow Raduis"));
+
 }
 
 
 void AGlowObject::ToggleGlow(bool IsGlowing){
-    BT_Pickup->SetRenderCustomDepth(IsGlowing);
+    
+    SM_Glow->SetRenderCustomDepth(IsGlowing);
     
 }
 

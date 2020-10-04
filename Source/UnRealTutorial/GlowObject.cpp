@@ -10,7 +10,11 @@ AGlowObject::AGlowObject()
 	PrimaryActorTick.bCanEverTick = true;
 
     SM_Glow = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Static Mesh"));
-    
+    BT_Pickup = CreateDefaultSubobject<UBoxComponent>(TEXT("BT Pickup"));
+    BT_Pickup->SetGenerateOverlapEvents(true);
+    BT_Pickup->OnComponentBeginOverlap.AddDynamic(this,&AGlowObject::EnterObjectRasuis);
+    BT_Pickup->OnComponentEndOverlap.AddDynamic(this,&AGlowObject::ExitObjectRaduis);
+
     
 //    UProperty(EditAnywhere)
 //    UBoxComponent * BT_Pickup;
@@ -33,9 +37,19 @@ void AGlowObject::Tick(float DeltaTime)
 
 void AGlowObject::EnterObjectRasuis(UPrimitiveComponent* Comp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+    GEngine->AddOnScreenDebugMessage(-1,5,FColor::Green,TEXT("Enter Glow Raduis"));
+    ToggleGlow(true);
 }
 
-void AGlowObject::ExitObjectRaduis(UPrimitiveComponent* Comp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void AGlowObject::ExitObjectRaduis(UPrimitiveComponent* Comp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
+    GEngine->AddOnScreenDebugMessage(-1,5,FColor::Green,TEXT("Exit Glow Raduis"));
+    ToggleGlow(false);
+}
+
+
+void AGlowObject::ToggleGlow(bool IsGlowing){
+    BT_Pickup->SetRenderCustomDepth(IsGlowing);
+    
 }
 

@@ -30,15 +30,18 @@ public:
     void EnterObjectRasuis(class UPrimitiveComponent* Comp,class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
     
     UFUNCTION()
-    void ExitObjectRaduis(class UPrimitiveComponent* Comp,class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+    void ExitObjectRaduis(class UPrimitiveComponent* Comp,class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+public:
+    void ToggleGlow(bool IsGlowing);
     
 protected:
     UPROPERTY(EditAnywhere)
     UStaticMeshComponent *SM_Glow;
     
     
-   // UPROPERTY(EditAnywhere)
-   // UBoxComponent * BT_Pickup;
+    UPROPERTY(EditAnywhere)
+    UBoxComponent * BT_Pickup;
     
     
     
